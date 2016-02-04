@@ -94,8 +94,10 @@ func buildEvents(p telegraf.Metric, s string) []*raidman.Event {
 		}
 
 		switch value.(type) {
-		case string, bool:
+		case string:
 			event.State = value.(string)
+		case bool:
+			event.State =  fmt.Sprintf("%t", value.(bool))
 		default:
 			event.Metric = value
 		}
