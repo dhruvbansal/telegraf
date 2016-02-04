@@ -94,7 +94,7 @@ func buildEvents(p telegraf.Metric, s string) []*raidman.Event {
 		}
 
 		switch value.(type) {
-		case string:
+		case string, bool:
 			event.State = value.(string)
 		default:
 			event.Metric = value
