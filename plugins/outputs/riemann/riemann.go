@@ -77,6 +77,7 @@ func (r *Riemann) Write(metrics []telegraf.Metric) error {
 
 func buildEvents(p telegraf.Metric, s string) []*raidman.Event {
 	events := []*raidman.Event{}
+	telegrafTags := []string{"telegraf"}
 	for fieldName, value := range p.Fields() {
 		host, ok := p.Tags()["host"]
 		if !ok {
@@ -91,6 +92,7 @@ func buildEvents(p telegraf.Metric, s string) []*raidman.Event {
 		event := &raidman.Event{
 			Host:    host,
 			Service: serviceName(s, p.Name(),p.Tags(),fieldName),
+		        Tags:    telegrafTags,
 		}
 
 		switch value.(type) {
